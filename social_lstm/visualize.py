@@ -106,8 +106,11 @@ def plot_trajectories(true_trajs, pred_trajs, nodesPresent, obs_length, name, pl
         pred_x = [(p[0]+1)/2*height for p in pred_traj_ped]
         pred_y = [(p[1]+1)/2*width for p in pred_traj_ped]
 
-        plt.plot(true_x, true_y, color=c, linestyle='solid', marker='o')
-        plt.plot(pred_x, pred_y, color=c, linestyle='dashed', marker='x')
+        # print("true_x = ",true_x)
+        # print("true_y = ",true_y)
+
+        plt.plot(true_x, true_y, color='green', linestyle='solid', marker='o')
+        plt.plot(pred_x, pred_y, color='red', linestyle='dashed', marker='x')
 
     if not withBackground:
         plt.ylim((1, 0))
@@ -147,7 +150,7 @@ def main():
     withBackground = 0
 
     for i in range(len(results)):
-        print i
+        print(i)
         name = 'sequence' + str(i)
         plot_trajectories(results[i][0], results[i][1], results[i][2], results[i][3], name, plot_directory, withBackground)
 

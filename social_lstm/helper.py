@@ -102,9 +102,16 @@ def sample_gaussian_2d(mux, muy, sx, sy, corr, nodesPresent):
         mean = [o_mux[node], o_muy[node]]
         cov = [[o_sx[node]*o_sx[node], o_corr[node]*o_sx[node]*o_sy[node]], [o_corr[node]*o_sx[node]*o_sy[node], o_sy[node]*o_sy[node]]]
 
+        for i in range(len(mean)):
+            mean[i] = mean[i].to(torch.device('cpu'))
+
+        for i in range(len(cov)):
+            for j in range(len(cov[i])):
+                cov[i][j] = cov[i][j].to(torch.device('cpu'))
+
         next_values = np.random.multivariate_normal(mean, cov, 1)
-        next_x[node] = next_values[0][0]
-        next_y[node] = next_values[0][1]
+        next_x[node] = torch.tensor(next_values[0][0]).cuda()
+        next_y[node] = torch.tensor(next_values[0][1]).cuda()
 
     # return torch.from_numpy(next_x).cuda(), torch.from_numpy(next_y).cuda()
     return next_x, next_y

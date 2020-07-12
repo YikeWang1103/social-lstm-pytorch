@@ -7,6 +7,9 @@ Date: 13th June 2017
 import torch
 from torch.autograd import Variable
 
+#yike
+from torch import tensor
+
 import argparse
 import os
 import time
@@ -164,7 +167,9 @@ def train(args):
 
                 # Compute loss
                 loss = Gaussian2DLikelihood(outputs, nodes[1:], nodesPresent[1:], args.pred_length)
-                loss_batch += loss.data[0]
+                # print(loss)
+                # loss_batch += loss.data[0]
+                loss_batch += loss.item()
 
                 # Compute gradients
                 loss.backward()
@@ -234,7 +239,8 @@ def train(args):
 
                 # Compute loss
                 loss = Gaussian2DLikelihood(outputs, nodes[1:], nodesPresent[1:], args.pred_length)
-                loss_batch += loss.data[0]
+                # loss_batch += loss.data[0]
+                loss_batch += loss.item()
 
             # Reset the stgraph
             stgraph.reset()
